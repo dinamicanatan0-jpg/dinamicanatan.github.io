@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão Escolar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap text-3xl"></i>
+                <span class="logo-text">EduGestão</span>
+            </div>
+            <a href="login.html" class="badge-admin" style="text-decoration: none; display: inline-flex; align-items: center;">
+    <i class="fa-solid fa-user-gear mr-1"></i> Painel Administrativo
+</a>
+        </div>
+    </header>
+
+    <main class="main-container">
+        
+        <div class="titulo-secao">
+            <h1>Controle de Alunos</h1>
+            <p>Selecione uma das opções abaixo para gerenciar as informações da instituição.</p>
+        </div>
+
+        <div class="grid-home">
+            
+            <a href="cadastro.html" class="card-link blue-card">
+                <div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </div>
+                    <h3>Cadastrar Aluno</h3>
+                    <p>Adicione novos estudantes ao sistema, preenchendo dados pessoais, matrícula e turmas.</p>
+                </div>
+                <div class="card-action-text">
+                    Acessar formulário <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <a href="consultar.html" class="card-link green-card">
+                <div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h3>Consultar Dados</h3>
+                    <p>Busque por alunos cadastrados, visualize históricos, notas e status de matrícula.</p>
+                </div>
+                <div class="card-action-text">
+                    Buscar histórico <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <a href="relatorio.html" class="card-link purple-card">
+                <div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h3>Relatórios gerais</h3>
+                    <p>Acompanhe gráficos de evasão, total de matriculados e estatísticas por turma.</p>
+                </div>
+                <div class="card-action-text">
+                    Ver indicadores <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </a>
+
+        </div>
+
+    </main>
+
+    <footer class="footer-principal">
+        &copy; 2026 EduGestão. Todos os direitos reservados.
+    </footer>
+
+</body>
+</html>
