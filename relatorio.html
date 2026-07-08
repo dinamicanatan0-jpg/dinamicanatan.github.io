@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGestão - Relatórios Gerais</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>EduGestão</span>
+        </div>
+        <a href="index.html" class="btn-admin">
+            <i class="fa-solid fa-house"></i> Início
+        </a>
+    </header>
+
+    <main class="main-container">
+        <section class="page-header">
+            <h1>Relatórios Gerais</h1>
+            <p>Acompanhe gráficos de evasão, total de matriculados e estatísticas por turma.</p>
+        </section>
+
+        <section class="filters-section">
+            <div class="filter-group">
+                <label for="turma">Turma:</label>
+                <select id="turma">
+                    <option value="todas">Todas as turmas</option>
+                    <option value="3a">3º Ano A</option>
+                    <option value="3b">3º Ano B</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="periodo">Período:</label>
+                <select id="periodo">
+                    <option value="2026">2026 (Atual)</option>
+                    <option value="2025">2025</option>
+                </select>
+            </div>
+            <button class="btn-filter">Filtrar</button>
+        </section>
+
+        <section class="dashboard-cards">
+            <div class="card">
+                <div class="card-icon blue-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Total de Matriculados</h3>
+                    <p class="metric-value">1,240</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon purple-icon">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Taxa de Evasão</h3>
+                    <p class="metric-value">2.4%</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon green-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Formandos</h3>
+                    <p class="metric-value">180</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="charts-container">
+            <div class="chart-box">
+                <h3>Evolução de Matrículas vs. Evasão</h3>
+                <div class="chart-placeholder">
+                    <p><i class="fa-solid fa-chart-line"></i> [Espaço reservado para o gráfico de linha]</p>
+                </div>
+            </div>
+            
+            <div class="chart-box">
+                <h3>Distribuição por Turma</h3>
+                <div class="chart-placeholder">
+                    <p><i class="fa-solid fa-chart-column"></i> [Espaço reservado para o gráfico de barras]</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 EduGestão. Todos os direitos reservados.</p>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
