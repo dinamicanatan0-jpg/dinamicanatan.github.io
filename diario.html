@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGestão - Diário de Classe</title>
+    <link rel="stylesheet" href="diario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>EduGestão</span>
+        </div>
+        <a href="index.html" class="btn-admin">
+            <i class="fa-solid fa-house"></i> Início
+        </a>
+    </header>
+
+    <main class="main-container">
+        <section class="page-header">
+            <h1>Diário de Classe</h1>
+            <p>Gerencie as notas, controle de frequência e acompanhe a situação de aprovação dos alunos.</p>
+        </section>
+
+        <section class="filters-section">
+            <div class="filter-group">
+                <label for="turma">Turma:</label>
+                <select id="turma">
+                    <option value="3a">3º Ano A - Ensino Médio</option>
+                    <option value="3b">3º Ano B - Ensino Médio</option>
+                    <option value="2a">2º Ano A - Ensino Médio</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="disciplina">Disciplina:</label>
+                <select id="disciplina">
+                    <option value="matematica">Matemática</option>
+                    <option value="portugues">Língua Portuguesa</option>
+                    <option value="historia">História</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="bimestre">Bimestre / Período:</label>
+                <select id="bimestre">
+                    <option value="1b">1º Bimestre</option>
+                    <option value="2b">2º Bimestre</option>
+                    <option value="3b">3º Bimestre</option>
+                    <option value="4b">4º Bimestre</option>
+                </select>
+            </div>
+            <button class="btn-filter"><i class="fa-solid fa-magnifying-glass"></i> Carregar</button>
+        </section>
+
+        <section class="table-container">
+            <div class="table-actions">
+                <h3>Lista de Alunos</h3>
+                <button class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar Alterações</button>
+            </div>
+            
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="80px">Matrícula</th>
+                            <th>Nome do Aluno</th>
+                            <th width="100px" class="text-center">Nota 1</th>
+                            <th width="100px" class="text-center">Nota 2</th>
+                            <th width="100px" class="text-center">Média</th>
+                            <th width="120px" class="text-center">Presenças</th>
+                            <th width="120px" class="text-center">Faltas</th>
+                            <th width="150px" class="text-center">Situação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#202601</td>
+                            <td class="student-name">Ana Beatriz Silva</td>
+                            <td><input type="number" class="input-nota" value="8.5" min="0" max="10" step="0.1"></td>
+                            <td><input type="number" class="input-nota" value="9.0" min="0" max="10" step="0.1"></td>
+                            <td class="text-center font-bold">8.8</td>
+                            <td><input type="number" class="input-frequencia" value="45" min="0"></td>
+                            <td><input type="number" class="input-frequencia" value="2" min="0"></td>
+                            <td class="text-center"><span class="badge status-aprovado">Aprovado</span></td>
+                        </tr>
+                        <tr>
+                            <td>#202602</td>
+                            <td class="student-name">Carlos Eduardo Santos</td>
+                            <td><input type="number" class="input-nota" value="5.0" min="0" max="10" step="0.1"></td>
+                            <td><input type="number" class="input-nota" value="4.5" min="0" max="10" step="0.1"></td>
+                            <td class="text-center font-bold">4.8</td>
+                            <td><input type="number" class="input-frequencia" value="38" min="0"></td>
+                            <td><input type="number" class="input-frequencia" value="9" min="0"></td>
+                            <td class="text-center"><span class="badge status-reprovado">Reprovado</span></td>
+                        </tr>
+                        <tr>
+                            <td>#202603</td>
+                            <td class="student-name">Gabriel Oliveira Souza</td>
+                            <td><input type="number" class="input-nota" value="6.0" min="0" max="10" step="0.1"></td>
+                            <td><input type="number" class="input-nota" value="6.5" min="0" max="10" step="0.1"></td>
+                            <td class="text-center font-bold">6.3</td>
+                            <td><input type="number" class="input-frequencia" value="42" min="0"></td>
+                            <td><input type="number" class="input-frequencia" value="5" min="0"></td>
+                            <td class="text-center"><span class="badge status-recuperacao">Recuperação</span></td>
+                        </tr>
+                        <tr>
+                            <td>#202604</td>
+                            <td class="student-name">Mariana Costa Ribeiro</td>
+                            <td><input type="number" class="input-nota" value="9.5" min="0" max="10" step="0.1"></td>
+                            <td><input type="number" class="input-nota" value="10.0" min="0" max="10" step="0.1"></td>
+                            <td class="text-center font-bold">9.8</td>
+                            <td><input type="number" class="input-frequencia" value="47" min="0"></td>
+                            <td><input type="number" class="input-frequencia" value="0" min="0"></td>
+                            <td class="text-center"><span class="badge status-aprovado">Aprovado</span></td>
+                        </tr>
+                        <tr>
+                            <td>#202605</td>
+                            <td class="student-name">Rodrigo Pereira Almeida</td>
+                            <td><input type="number" class="input-nota" value="4.0" min="0" max="10" step="0.1"></td>
+                            <td><input type="number" class="input-nota" value="5.5" min="0" max="10" step="0.1"></td>
+                            <td class="text-center font-bold">4.8</td>
+                            <td><input type="number" class="input-frequencia" value="32" min="0"></td>
+                            <td><input type="number" class="input-frequencia" value="15" min="0"></td>
+                            <td class="text-center"><span class="badge status-reprovado">Reprovado</span></td>
+                        </tr>
+                        <!-- Tabela do Diário de Classe -->
+        <section class="table-container">
+            <div class="table-actions">
+                <h3>Lista de Alunos</h3>
+                
+                <!-- Nova Barra de Pesquisa Integrada -->
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-student" placeholder="Buscar aluno pelo nome...">
+                </div>
+
+                <button class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar Alterações</button>
+            </div>
+            
+            <div class="responsive-table">
+                <!-- A tabela continua exatamente igual aqui dentro -->
+                <table>
+                   <!-- ... seus thead e tbody ... -->
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>&copy; 2026 EduGestão. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- SCRIPT JAVASCRIPT: Adicione isso no final para a busca funcionar na hora! -->
+    <script>
+        document.getElementById('search-student').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const tableRows = document.querySelectorAll('tbody tr');
+
+            tableRows.forEach(row => {
+                const studentNameElement = row.querySelector('.student-name');
+                if (studentNameElement) {
+                    const studentName = studentNameElement.textContent.toLowerCase();
+                    if (studentName.includes(searchTerm)) {
+                        row.style.display = ''; // Mostra a linha
+                    } else {
+                        row.style.display = 'none'; // Esconde a linha
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 EduGestão. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+  </html>
+  
