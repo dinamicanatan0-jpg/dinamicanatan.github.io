@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Aluno - EduGestão</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="header-principal">
+        <div class="header-container">
+            <a href="index.html" class="brand-box">
+                <i class="fa-solid fa-graduation-cap text-3xl"></i>
+                <span class="brand-title">EduGestão</span>
+            </a>
+            <div class="badge-admin">
+                <i class="fa-solid fa-user-gear mr-1"></i> Painel Administrativo
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="topo-pagina">
+            <a href="index.html" class="btn-voltar">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Voltar para o início
+            </a>
+            <h1 class="titulo-pagina">
+                <i class="fa-solid fa-user-plus" style="color: #2563eb; margin-right: 0.5rem;"></i> Cadastrar Aluno
+            </h1>
+            <p class="subtitulo-pagina">Preencha todas as informações abaixo para incluir o novo estudante no sistema.</p>
+        </div>
+
+        <form class="formulario-cadastro">
+            <div class="secao-formulario">
+                <h2 class="titulo-secao"><i class="fa-solid fa-address-card"></i>Dados Pessoais e Escolares</h2>
+                <div class="grid-form grid-col-2">
+                    <div class="grupo-input span-2">
+                        <label for="nome">Nome do Aluno *</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Nome completo do estudante">
+                    </div>
+                    <div class="grupo-input">
+                        <label for="data_nascimento">Data de Nascimento *</label>
+                        <input type="date" id="data_nascimento" name="data_nascimento" required>
+                    </div>
+                    <div class="grupo-input">
+                        <label for="matricula">Número da Matrícula *</label>
+                        <input type="text" id="matricula" name="matricula" required placeholder="Ex: 20261023">
+                    </div>
+                    <div class="grupo-input span-2">
+                        <label for="turma">Nome da Turma *</label>
+                        <input type="text" id="turma" name="turma" required placeholder="Ex: 1º Ano A - Ensino Médio">
+                    </div>
+                </div>
+            </div>
+
+            <div class="secao-formulario">
+                <h2 class="titulo-secao"><i class="fa-solid fa-users"></i>Responsável e Contato</h2>
+                <div class="grid-form grid-col-3">
+                    <div class="grupo-input span-3">
+                        <label for="responsavel">Nome do Responsável *</label>
+                        <input type="text" id="responsavel" name="responsavel" required placeholder="Nome do pai, mãe ou tutor legal">
+                    </div>
+                    <div class="grupo-input">
+                        <label for="telefone_1">Número de Telefone *</label>
+                        <input type="tel" id="telefone_1" name="telefone_1" required placeholder="(00) 00000-0000">
+                    </div>
+                    <div class="grupo-input span-2">
+                        <label for="telefone_2">2º Número de Telefone *</label>
+                        <input type="tel" id="telefone_2" name="telefone_2" required placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+            </div>
+
+            <div class="secao-formulario">
+                <h2 class="titulo-secao"><i class="fa-solid fa-location-dot"></i>Endereço Residencial</h2>
+                <div class="grid-form grid-col-4">
+                    <div class="grupo-input span-3">
+                        <label for="endereco">Endereço *</label>
+                        <input type="text" id="endereco" name="endereco" required placeholder="Rua, Avenida, Logradouro...">
+                    </div>
+                    <div class="grupo-input">
+                        <label for="numero_residencia">Número *</label>
+                        <input type="text" id="numero_residencia" name="numero_residencia" required placeholder="Nº">
+                    </div>
+                    <div class="grupo-input span-4">
+                        <label for="bairro">Bairro *</label>
+                        <input type="text" id="bairro" name="bairro" required placeholder="Nome do bairro">
+                    </div>
+                </div>
+            </div>
+
+            <div class="botoes-acoes">
+                <a href="index.html" class="btn-cancelar">Cancelar</a>
+                <button type="submit" class="btn-salvar">
+                    <i class="fa-solid fa-floppy-disk" style="margin-right: 0.5rem;"></i>Salvar Cadastro
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="footer-principal">
+        <div class="footer-text">&copy; 2026 EduGestão. Todos os direitos reservados.</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
