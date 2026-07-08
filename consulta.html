@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Aluno - EduGestão</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-graduation-cap text-3xl"></i>
+                <span class="logo-text">EduGestão</span>
+            </a>
+            <a href="index.html" class="btn-voltar">
+                <i class="fa-solid fa-house"></i> Voltar ao Início
+            </a>
+        </div>
+    </header>
+
+    <main class="main-container">
+        
+        <div class="titulo-secao">
+            <h1>Consultar Aluno</h1>
+            <p>Insira o número de matrícula do estudante para localizar o registro completo.</p>
+        </div>
+
+        <div class="card-busca">
+            <form id="searchForm" class="form-busca">
+                <div class="input-container">
+                    <i class="fa-solid fa-id-card"></i>
+                    <input 
+                        type="text" 
+                        id="matriculaInput"
+                        placeholder="Digite o número da matrícula (ex: 1234)" 
+                        required
+                        class="input-busca"
+                    >
+                </div>
+                <button type="submit" class="btn-buscar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Buscar Aluno</span>
+                </button>
+            </form>
+        </div>
+
+        <div id="resultadoBusca" class="card-resultado hidden">
+            <div class="header-resultado">
+                <div class="perfil-info">
+                    <div class="avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="aluno-detalhe">
+                        <h2 id="alunoNome">Nome do Aluno</h2>
+                        <p>Matrícula: <span id="alunoMatricula">-</span></p>
+                    </div>
+                </div>
+                <span id="alunoStatus" class="status-badge">Ativo</span>
+            </div>
+
+            <div class="grid-dados">
+                <div class="dado-grupo">
+                    <label>E-mail / Responsável</label>
+                    <p id="alunoEmail">-</p>
+                </div>
+                <div class="dado-grupo">
+                    <label>Curso / Turma</label>
+                    <p id="alunoCurso">-</p>
+                </div>
+                <div class="dado-grupo">
+                    <label>Data de Nascimento</label>
+                    <p id="alunoDataNasc">-</p>
+                </div>
+                <div class="dado-grupo">
+                    <label>Telefone do Responsável</label>
+                    <p id="alunoTelefone">-</p>
+                </div>
+            </div>
+
+            <div class="footer-resultado">
+                <button class="btn-editar">
+                    <i class="fa-solid fa-pen-to-square"></i> Editar Dados
+                </button>
+                <button class="btn-excluir">
+                    <i class="fa-solid fa-trash"></i> Excluir Aluno
+                </button>
+            </div>
+        </div>
+
+        <div id="erroBusca" class="alert-erro hidden">
+            <i class="fa-solid fa-circle-exclamation"></i> Matrícula não encontrada no sistema.
+        </div>
+
+    </main>
+
+    <footer class="footer-principal">
+        &copy; 2026 EduGestão. Todos os direitos reservados.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
