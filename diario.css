@@ -1,0 +1,338 @@
+/* Reset básico e tipografia consistente */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Cabeçalho (Navbar) idêntico à captura original */
+.navbar {
+    background-color: #2563eb;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.btn-admin {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-admin:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Container Principal */
+.main-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-size: 2.2rem;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+/* Filtros de Seleção */
+.filters-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    margin-bottom: 30px;
+    border: 1px solid #e2e8f0;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.filter-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.filter-group select {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #334155;
+    outline: none;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.filter-group select:focus {
+    border-color: #2563eb;
+}
+
+.btn-filter {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+
+.btn-filter:hover {
+    background-color: #1d4ed8;
+}
+
+/* Tabela e Bloco do Diário */
+.table-container {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.table-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 15px;
+}
+
+.table-actions h3 {
+    font-size: 1.2rem;
+    color: #1e293b;
+}
+/* Estilização da Nova Barra de Pesquisa */
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 350px; /* Não deixa a barra ficar gigante em telas grandes */
+    margin: 0 20px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    pointer-events: none;
+}
+
+#search-student {
+    width: 100%;
+    padding: 9px 12px 9px 36px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #334155;
+    outline: none;
+    transition: all 0.2s ease;
+    background-color: #f8fafc;
+}
+
+#search-student:focus {
+    border-color: #2563eb;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Ajuste de responsividade para celulares */
+@media (max-width: 768px) {
+    .table-actions {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    .search-box {
+        max-width: 100%;
+        margin: 0;
+    }
+}
+.btn-save {
+    background-color: #16a34a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-save:hover {
+    background-color: #15803d;
+}
+
+/* Estrutura da Tabela */
+.responsive-table {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    padding: 14px 16px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    vertical-align: middle;
+}
+
+tr:hover {
+    background-color: #f8fafc;
+}
+
+.student-name {
+    font-weight: 500;
+    color: #0f172a;
+}
+
+/* Inputs Editáveis (Notas e Frequência) */
+.input-nota, .input-frequencia {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #334155;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-nota:focus, .input-frequencia:focus {
+    border-color: #2563eb;
+    background-color: #fff;
+}
+
+.input-nota { max-width: 70px; }
+.input-frequencia { max-width: 80px; }
+
+/* Auxiliares */
+.text-center { text-align: center; }
+.font-bold { font-weight: 700; color: #0f172a; }
+
+/* Status Badges (Aprovado, Reprovado, Recuperação) */
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.status-aprovado {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-reprovado {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.status-recuperacao {
+    background-color: #fef9c3;
+    color: #a16207;
+}
+
+/* Rodapé */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-top: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-top: auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .filters-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .table-actions {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+    .btn-save {
+        width: 100%;
+        justify-content: center;
+    }
+  }
