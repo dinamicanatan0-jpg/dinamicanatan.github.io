@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGestão - Login do Administrador</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="interface-body">
+
+    <header class="main-header" style="background: #2563eb; padding: 1rem 0;">
+        <div class="header-container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo-area" style="display: flex; align-items: center; gap: 0.5rem; color: white;">
+                <i class="fa-solid fa-graduation-cap logo-icon" style="font-size: 1.5rem;"></i>
+                <span class="logo-text" style="font-weight: bold; font-size: 1.2rem;">EduGestão</span>
+            </div>
+            
+            <a href="index.html" class="btn-voltar" style="text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500; font-size: 0.95rem; background: rgba(255,255,255,0.15); padding: 0.5rem 1rem; border-radius: 6px; transition: 0.3s;">
+                <i class="fa-solid fa-house"></i> Início
+            </a>
+        </div>
+    </header>
+
+    <main class="login-container">
+        <div class="login-card">
+            
+            <div class="card-header">
+                <div class="lock-icon-wrapper">
+                    <i class="fa-solid fa-user-lock"></i>
+                </div>
+                <h2 class="card-title">Painel do Administrador</h2>
+                <p class="card-subtitle">Insira suas credenciais para acessar o sistema</p>
+            </div>
+
+            <div id="error-message" class="error-box hidden">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>E-mail ou senha incorretos.</span>
+            </div>
+
+            <form id="login-form" onsubmit="handleLogin(event)" class="login-form">
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">E-mail Corporativo</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+                        <input type="email" id="email" required class="form-input" placeholder="exemplo@email.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Senha de Acesso</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" id="password" required class="form-input" placeholder="••••••••">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <span>Acessar Painel</span>
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </button>
+            </form>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            &copy; 2026 EduGestão. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const emailInput = document.getElementById('email').value;
+            const passwordInput = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            const adminEmail = "dinamicanatan0@gmail.com";
+            const adminPassword = "cursotecnico";
+
+            if (emailInput === adminEmail && passwordInput === adminPassword) {
+                errorMessage.classList.add('hidden');
+                // Redireciona para a página do diário em caso de sucesso
+                window.location.href = "diario.html"; 
+            } else {
+                errorMessage.classList.remove('hidden');
+            }
+        }
+    </script>
+
+</body>
+</html>
