@@ -4,107 +4,212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduGestão - Relatórios Gerais</title>
+
     <link rel="stylesheet" href="relatorio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="logo">
-            <i class="fa-solid fa-graduation-cap"></i>
-            <span>EduGestão</span>
+<header class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>EduGestão</span>
+    </div>
+
+    <a href="index.html" class="btn-admin">
+        <i class="fa-solid fa-house"></i>
+        Início
+    </a>
+</header>
+
+<main class="main-container">
+
+    <section class="page-header">
+        <h1>Relatórios Gerais</h1>
+        <p>
+            Acompanhe estatísticas, total de matriculados e a listagem geral do sistema.
+        </p>
+
+        <p class="data-atual">
+            <i class="fa-solid fa-calendar"></i>
+            <span id="dataAtual"></span>
+        </p>
+    </section>
+
+    <!-- CARDS -->
+    <section class="dashboard-cards">
+
+        <div class="card">
+            <div class="card-icon blue-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div class="card-info">
+                <h3>Total de Matriculados</h3>
+                <p class="metric-value" id="totalAlunos">
+                    0
+                </p>
+            </div>
         </div>
-        <!-- Link de Início estilizado via classe .btn-admin -->
-        <a href="index.html" class="btn-admin">
-            <i class="fa-solid fa-house"></i> Início
-        </a>
-    </header>
 
-    <main class="main-container">
-        <section class="page-header">
-            <h1>Relatórios Gerais</h1>
-            <p>Acompanhe estatísticas, total de matriculados e a listagem geral do sistema.</p>
-        </section>
-
-        <section class="dashboard-cards">
-            <div class="card">
-                <div class="card-icon blue-icon">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-                <div class="card-info">
-                    <h3>Total de Matriculados</h3>
-                    <p class="metric-value" id="totalAlunos">Carregando...</p>
-                </div>
+        <div class="card">
+            <div class="card-icon green-icon">
+                <i class="fa-solid fa-user-check"></i>
             </div>
 
-            <div class="card">
-                <div class="card-icon purple-icon">
-                    <i class="fa-solid fa-chart-pie"></i>
-                </div>
-                <div class="card-info">
-                    <h3>Taxa de Evasão</h3>
-                    <p class="metric-value">0%</p>
-                </div>
+            <div class="card-info">
+                <h3>Alunos Ativos</h3>
+                <p class="metric-value" id="alunosAtivos">
+                    0
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon orange-icon">
+                <i class="fa-solid fa-school"></i>
             </div>
 
-            <div class="card">
-                <div class="card-icon green-icon">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <div class="card-info">
-                    <h3>Formandos</h3>
-                    <p class="metric-value">0</p>
-                </div>
+            <div class="card-info">
+                <h3>Total de Turmas</h3>
+                <p class="metric-value" id="totalTurmas">
+                    0
+                </p>
             </div>
-        </section>
+        </div>
 
-        <section class="charts-container">
-            <div class="chart-box">
-                <h3>Evolução de Matrículas</h3>
-                <div class="chart-placeholder">
-                    <p><i class="fa-solid fa-chart-line"></i> [Espaço reservado para o gráfico de linha]</p>
-                </div>
+        <div class="card">
+            <div class="card-icon purple-icon">
+                <i class="fa-solid fa-award"></i>
             </div>
-            
-            <div class="chart-box">
-                <h3>Distribuição por Turma</h3>
-                <div class="chart-placeholder">
-                    <p><i class="fa-solid fa-chart-column"></i> [Espaço reservado para o gráfico de barras]</p>
-                </div>
+
+            <div class="card-info">
+                <h3>Aprovados</h3>
+                <p class="metric-value" id="aprovados">
+                    0
+                </p>
             </div>
-        </section>
+        </div>
 
-        <section class="card-busca" style="margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
-            <h2 style="margin-bottom: 1rem; color: #1e293b; font-size: 1.3rem;"><i class="fa-solid fa-list-ol" style="color: #2563eb; margin-right: 0.5rem;"></i> Alunos Cadastrados no Sistema</h2>
-            
-            <div style="overflow-x: auto;">
-                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
-                    <thead>
-                        <tr style="border-bottom: 2px solid #e2e8f0; color: #64748b;">
-                            <th style="padding: 0.75rem 0.5rem;">Matrícula</th>
-                            <th style="padding: 0.75rem 0.5rem;">Nome</th>
-                            <th style="padding: 0.75rem 0.5rem;">Turma</th>
-                            <th style="padding: 0.75rem 0.5rem;">Responsável</th>
-                            <th style="padding: 0.75rem 0.5rem;">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabelaAlunosCorpo">
-                        <tr>
-                            <td colspan="5" style="text-align: center; padding: 2rem; color: #94a3b8;">
-                                <i class="fa-solid fa-spinner fa-spin"></i> Buscando dados no Supabase...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+    </section>
+
+    <!-- GRÁFICOS -->
+    <section class="charts-container">
+
+        <div class="chart-box">
+            <h3>
+                <i class="fa-solid fa-chart-line"></i>
+                Evolução de Matrículas
+            </h3>
+
+            <canvas id="graficoMatriculas"></canvas>
+        </div>
+
+        <div class="chart-box">
+            <h3>
+                <i class="fa-solid fa-chart-column"></i>
+                Distribuição por Turma
+            </h3>
+
+            <canvas id="graficoTurmas"></canvas>
+        </div>
+
+    </section>
+
+    <!-- PESQUISA -->
+    <section class="card-busca">
+
+        <div class="table-header">
+
+            <h2>
+                <i class="fa-solid fa-list"></i>
+                Alunos Cadastrados
+            </h2>
+
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="pesquisaAluno"
+                    placeholder="Pesquisar aluno pelo nome..."
+                >
             </div>
-        </section>
-    </main>
 
-    <footer class="footer">
-        <p>&copy; 2026 EduGestão. Todos os direitos reservados.</p>
-    </footer>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
+        <div style="overflow-x:auto;">
+
+            <table class="tabela-alunos">
+
+                <thead>
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Nome</th>
+                        <th>Turma</th>
+                        <th>Responsável</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelaAlunosCorpo">
+                    <tr>
+                        <td colspan="5" style="text-align:center;padding:2rem;">
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+                            Carregando dados...
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <!-- ÚLTIMOS CADASTROS -->
+    <section class="ultimos-cadastros">
+
+        <h2>
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Últimos Cadastros
+        </h2>
+
+        <ul id="ultimosAlunos">
+
+            <li>
+                Nenhum dado carregado.
+            </li>
+
+        </ul>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p>
+        © 2026 EduGestão. Todos os direitos reservados.
+    </p>
+</footer>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- SCRIPT PRINCIPAL -->
+<script src="script.js"></script>
+
+<script>
+    const hoje = new Date();
+
+    document.getElementById("dataAtual").innerText =
+        hoje.toLocaleDateString("pt-BR", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
+</script>
+
 </body>
 </html>
