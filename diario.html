@@ -4,186 +4,264 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduGestão - Diário de Classe</title>
+
     <link rel="stylesheet" href="diario.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="logo">
-            <i class="fa-solid fa-graduation-cap"></i>
-            <span>EduGestão</span>
+<header class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>EduGestão</span>
+    </div>
+
+    <a href="index.html" class="btn-admin">
+        <i class="fa-solid fa-house"></i>
+        Início
+    </a>
+</header>
+
+<main class="main-container">
+
+    <section class="page-header">
+        <h1>Diário de Classe</h1>
+        <p>
+            Gerencie as notas, controle de frequência e acompanhe a situação de aprovação dos alunos.
+        </p>
+    </section>
+
+    <section class="filters-section">
+        <div class="filter-group">
+            <label>Turma:</label>
+            <select>
+                <option>3º Ano A - Ensino Médio</option>
+                <option>3º Ano B - Ensino Médio</option>
+                <option>2º Ano A - Ensino Médio</option>
+            </select>
         </div>
-        <a href="index.html" class="btn-admin">
-            <i class="fa-solid fa-house"></i> Início
-        </a>
-    </header>
 
-    <main class="main-container">
-        <section class="page-header">
-            <h1>Diário de Classe</h1>
-            <p>Gerencie as notas, controle de frequência e acompanhe a situação de aprovação dos alunos.</p>
-        </section>
+        <div class="filter-group">
+            <label>Disciplina:</label>
+            <select>
+                <option>Matemática</option>
+                <option>Português</option>
+                <option>História</option>
+            </select>
+        </div>
 
-        <section class="filters-section">
-            <div class="filter-group">
-                <label for="turma">Turma:</label>
-                <select id="turma">
-                    <option value="3a">3º Ano A - Ensino Médio</option>
-                    <option value="3b">3º Ano B - Ensino Médio</option>
-                    <option value="2a">2º Ano A - Ensino Médio</option>
-                </select>
+        <div class="filter-group">
+            <label>Bimestre:</label>
+            <select>
+                <option>1º Bimestre</option>
+                <option>2º Bimestre</option>
+                <option>3º Bimestre</option>
+                <option>4º Bimestre</option>
+            </select>
+        </div>
+    </section>
+
+    <section class="table-container">
+
+        <div class="table-actions">
+            <h3>Lista de Alunos</h3>
+
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="search-student"
+                    placeholder="Buscar aluno pelo nome..."
+                >
             </div>
-            <div class="filter-group">
-                <label for="disciplina">Disciplina:</label>
-                <select id="disciplina">
-                    <option value="matematica">Matemática</option>
-                    <option value="portugues">Língua Portuguesa</option>
-                    <option value="historia">História</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="bimestre">Bimestre / Período:</label>
-                <select id="bimestre">
-                    <option value="1b">1º Bimestre</option>
-                    <option value="2b">2º Bimestre</option>
-                    <option value="3b">3º Bimestre</option>
-                    <option value="4b">4º Bimestre</option>
-                </select>
-            </div>
-            <button class="btn-filter"><i class="fa-solid fa-magnifying-glass"></i> Carregar</button>
-        </section>
 
-        <section class="table-container">
-            <div class="table-actions">
-                <h3>Lista de Alunos</h3>
-                <button class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar Alterações</button>
-            </div>
-            
-            <div class="responsive-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th width="80px">Matrícula</th>
-                            <th>Nome do Aluno</th>
-                            <th width="100px" class="text-center">Nota 1</th>
-                            <th width="100px" class="text-center">Nota 2</th>
-                            <th width="100px" class="text-center">Média</th>
-                            <th width="120px" class="text-center">Presenças</th>
-                            <th width="120px" class="text-center">Faltas</th>
-                            <th width="150px" class="text-center">Situação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#202601</td>
-                            <td class="student-name">Ana Beatriz Silva</td>
-                            <td><input type="number" class="input-nota" value="8.5" min="0" max="10" step="0.1"></td>
-                            <td><input type="number" class="input-nota" value="9.0" min="0" max="10" step="0.1"></td>
-                            <td class="text-center font-bold">8.8</td>
-                            <td><input type="number" class="input-frequencia" value="45" min="0"></td>
-                            <td><input type="number" class="input-frequencia" value="2" min="0"></td>
-                            <td class="text-center"><span class="badge status-aprovado">Aprovado</span></td>
-                        </tr>
-                        <tr>
-                            <td>#202602</td>
-                            <td class="student-name">Carlos Eduardo Santos</td>
-                            <td><input type="number" class="input-nota" value="5.0" min="0" max="10" step="0.1"></td>
-                            <td><input type="number" class="input-nota" value="4.5" min="0" max="10" step="0.1"></td>
-                            <td class="text-center font-bold">4.8</td>
-                            <td><input type="number" class="input-frequencia" value="38" min="0"></td>
-                            <td><input type="number" class="input-frequencia" value="9" min="0"></td>
-                            <td class="text-center"><span class="badge status-reprovado">Reprovado</span></td>
-                        </tr>
-                        <tr>
-                            <td>#202603</td>
-                            <td class="student-name">Gabriel Oliveira Souza</td>
-                            <td><input type="number" class="input-nota" value="6.0" min="0" max="10" step="0.1"></td>
-                            <td><input type="number" class="input-nota" value="6.5" min="0" max="10" step="0.1"></td>
-                            <td class="text-center font-bold">6.3</td>
-                            <td><input type="number" class="input-frequencia" value="42" min="0"></td>
-                            <td><input type="number" class="input-frequencia" value="5" min="0"></td>
-                            <td class="text-center"><span class="badge status-recuperacao">Recuperação</span></td>
-                        </tr>
-                        <tr>
-                            <td>#202604</td>
-                            <td class="student-name">Mariana Costa Ribeiro</td>
-                            <td><input type="number" class="input-nota" value="9.5" min="0" max="10" step="0.1"></td>
-                            <td><input type="number" class="input-nota" value="10.0" min="0" max="10" step="0.1"></td>
-                            <td class="text-center font-bold">9.8</td>
-                            <td><input type="number" class="input-frequencia" value="47" min="0"></td>
-                            <td><input type="number" class="input-frequencia" value="0" min="0"></td>
-                            <td class="text-center"><span class="badge status-aprovado">Aprovado</span></td>
-                        </tr>
-                        <tr>
-                            <td>#202605</td>
-                            <td class="student-name">Rodrigo Pereira Almeida</td>
-                            <td><input type="number" class="input-nota" value="4.0" min="0" max="10" step="0.1"></td>
-                            <td><input type="number" class="input-nota" value="5.5" min="0" max="10" step="0.1"></td>
-                            <td class="text-center font-bold">4.8</td>
-                            <td><input type="number" class="input-frequencia" value="32" min="0"></td>
-                            <td><input type="number" class="input-frequencia" value="15" min="0"></td>
-                            <td class="text-center"><span class="badge status-reprovado">Reprovado</span></td>
-                        </tr>
-                        <!-- Tabela do Diário de Classe -->
-        <section class="table-container">
-            <div class="table-actions">
-                <h3>Lista de Alunos</h3>
-                
-                <!-- Nova Barra de Pesquisa Integrada -->
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="search-student" placeholder="Buscar aluno pelo nome...">
-                </div>
+            <button class="btn-save">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Salvar Alterações
+            </button>
+        </div>
 
-                <button class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar Alterações</button>
-            </div>
-            
-            <div class="responsive-table">
-                <!-- A tabela continua exatamente igual aqui dentro -->
-                <table>
-                   <!-- ... seus thead e tbody ... -->
-                </table>
-            </div>
-        </section>
-    </main>
+        <div class="responsive-table">
+            <table>
+                <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Nome do Aluno</th>
+                    <th>Nota 1</th>
+                    <th>Nota 2</th>
+                    <th>Média</th>
+                    <th>Presenças</th>
+                    <th>Faltas</th>
+                    <th>Situação</th>
+                </tr>
+                </thead>
 
-    <!-- Rodapé -->
-    <footer class="footer">
-        <p>&copy; 2026 EduGestão. Todos os direitos reservados.</p>
-    </footer>
+                <tbody id="lista-alunos">
+                    <tr>
+                        <td colspan="8" style="text-align:center">
+                            Carregando alunos...
+                        </td>
+                    </tr>
+                </tbody>
 
-    <!-- SCRIPT JAVASCRIPT: Adicione isso no final para a busca funcionar na hora! -->
-    <script>
-        document.getElementById('search-student').addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const tableRows = document.querySelectorAll('tbody tr');
+            </table>
+        </div>
+    </section>
 
-            tableRows.forEach(row => {
-                const studentNameElement = row.querySelector('.student-name');
-                if (studentNameElement) {
-                    const studentName = studentNameElement.textContent.toLowerCase();
-                    if (studentName.includes(searchTerm)) {
-                        row.style.display = ''; // Mostra a linha
-                    } else {
-                        row.style.display = 'none'; // Esconde a linha
-                    }
-                }
-            });
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 EduGestão. Todos os direitos reservados.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+'https://slfcjvwsoyucjbymnuaw.supabase.co';
+
+const SUPABASE_ANON_KEY =
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsZmNqdndzb3l1Y2pieW1udWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NTU4NTIsImV4cCI6MjA5OTAzMTg1Mn0.rq8pFIiYozatMtKKork4gsoGyMTsi2og470stWeW05c';
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+function calcularMedia(n1, n2) {
+    n1 = Number(n1) || 0;
+    n2 = Number(n2) || 0;
+
+    return ((n1 + n2) / 2).toFixed(1);
+}
+
+function gerarSituacao(media) {
+    media = Number(media);
+
+    if (media >= 7) {
+        return '<span class="badge status-aprovado">Aprovado</span>';
+    }
+
+    if (media >= 5) {
+        return '<span class="badge status-recuperacao">Recuperação</span>';
+    }
+
+    return '<span class="badge status-reprovado">Reprovado</span>';
+}
+
+async function carregarAlunos() {
+    const tbody = document.getElementById('lista-alunos');
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('alunos')
+            .select('*')
+            .order('nome');
+
+        if (error) throw error;
+
+        tbody.innerHTML = '';
+
+        if (!data || data.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8">
+                        Nenhum aluno cadastrado.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        data.forEach(aluno => {
+            const nota1 = Number(aluno.nota1) || 0;
+            const nota2 = Number(aluno.nota2) || 0;
+            const media = calcularMedia(nota1, nota2);
+
+            const tr = document.createElement('tr');
+
+            tr.innerHTML = `
+                <td>${aluno.matricula || '-'}</td>
+                <td class="student-name">${aluno.nome || '-'}</td>
+
+                <td>
+                    <input type="number"
+                           class="input-nota"
+                           value="${nota1}">
+                </td>
+
+                <td>
+                    <input type="number"
+                           class="input-nota"
+                           value="${nota2}">
+                </td>
+
+                <td class="text-center font-bold">
+                    ${media}
+                </td>
+
+                <td>
+                    <input type="number"
+                           class="input-frequencia"
+                           value="${aluno.presencas || 0}">
+                </td>
+
+                <td>
+                    <input type="number"
+                           class="input-frequencia"
+                           value="${aluno.faltas || 0}">
+                </td>
+
+                <td class="text-center">
+                    ${gerarSituacao(media)}
+                </td>
+            `;
+
+            tbody.appendChild(tr);
         });
-    </script>
+
+    } catch (err) {
+        console.error(err);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    Erro ao carregar alunos.
+                </td>
+            </tr>
+        `;
+    }
+}
+
+document
+.getElementById('search-student')
+.addEventListener('input', function () {
+
+    const texto = this.value.toLowerCase();
+
+    document
+    .querySelectorAll('#lista-alunos tr')
+    .forEach(linha => {
+        const nome =
+            linha.querySelector('.student-name');
+
+        if (!nome) return;
+
+        linha.style.display =
+            nome.textContent
+                .toLowerCase()
+                .includes(texto)
+                    ? ''
+                    : 'none';
+    });
+});
+
+document.addEventListener(
+    'DOMContentLoaded',
+    carregarAlunos
+);
+</script>
+
 </body>
 </html>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2026 EduGestão. Todos os direitos reservados.</p>
-    </footer>
-
-</body>
-  </html>
-  
