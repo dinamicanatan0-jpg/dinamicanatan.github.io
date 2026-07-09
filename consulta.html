@@ -1,109 +1,90 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultar Aluno - EduGestão</title>
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultar Alunos - EduGestão</title>
+
+  <link rel="stylesheet" href="consulta.css">
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="navbar-container">
-            <a href="index.html" class="logo">
-                <i class="fa-solid fa-graduation-cap text-3xl"></i>
-                <span class="logo-text">EduGestão</span>
-            </a>
-            <a href="index.html" class="btn-voltar">
-                <i class="fa-solid fa-house"></i> Voltar ao Início
-            </a>
-        </div>
-    </header>
+<header>
+  <h2>
+    <i class="fas fa-graduation-cap"></i>
+    EduGestão
+  </h2>
+</header>
 
-    <main class="main-container">
-        
-        <div class="titulo-secao">
-            <h1>Consultar Aluno</h1>
-            <p>Insira o número de matrícula do estudante para localizar o registro completo.</p>
-        </div>
+<main class="container">
 
-        <div class="card-busca">
-            <form id="searchForm" class="form-busca">
-                <div class="input-container">
-                    <i class="fa-solid fa-id-card"></i>
-                    <input 
-                        type="text" 
-                        id="matriculaInput"
-                        placeholder="Digite o número da matrícula (ex: 1234)" 
-                        required
-                        class="input-busca"
-                    >
-                </div>
-                <button type="submit" class="btn-buscar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <span>Buscar Aluno</span>
-                </button>
-            </form>
-        </div>
+  <div class="topo">
 
-        <div id="resultadoBusca" class="card-resultado hidden">
-            <div class="header-resultado">
-                <div class="perfil-info">
-                    <div class="avatar">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="aluno-detalhe">
-                        <h2 id="alunoNome">Nome do Aluno</h2>
-                        <p>Matrícula: <span id="alunoMatricula">-</span></p>
-                    </div>
-                </div>
-                <span id="alunoStatus" class="status-badge">Ativo</span>
-            </div>
+    <button class="btn-voltar" onclick="voltar()">
+      <i class="fas fa-arrow-left"></i>
+      Voltar
+    </button>
 
-            <div class="grid-dados">
-                <div class="dado-grupo">
-                    <label>E-mail / Responsável</label>
-                    <p id="alunoEmail">-</p>
-                </div>
-                <div class="dado-grupo">
-                    <label>Curso / Turma</label>
-                    <p id="alunoCurso">-</p>
-                </div>
-                <div class="dado-grupo">
-                    <label>Data de Nascimento</label>
-                    <p id="alunoDataNasc">-</p>
-                </div>
-                <div class="dado-grupo">
-                    <label>Telefone do Responsável</label>
-                    <p id="alunoTelefone">-</p>
-                </div>
-            </div>
+    <h1>Consultar Alunos</h1>
 
-            <div class="footer-resultado">
-                <button class="btn-editar">
-                    <i class="fa-solid fa-pen-to-square"></i> Editar Dados
-                </button>
-                <button class="btn-excluir">
-                    <i class="fa-solid fa-trash"></i> Excluir Aluno
-                </button>
-            </div>
-        </div>
+    <p>
+      Pesquise ou visualize todos os alunos cadastrados.
+    </p>
 
-        <div id="erroBusca" class="alert-erro hidden">
-            <i class="fa-solid fa-circle-exclamation"></i> Matrícula não encontrada no sistema.
-        </div>
+  </div>
 
-    </main>
+  <div class="painel">
+    <div class="card">
+      <h3>Total de Matrículas</h3>
+      <span id="totalMatriculas">0</span>
+    </div>
+  </div>
 
-    <footer class="footer-principal">
-        &copy; 2026 EduGestão. Todos os direitos reservados.
-    </footer>
+  <div class="pesquisa">
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <script src="script.js"></script>
+    <input
+      type="text"
+      id="matricula"
+      placeholder="Digite a matrícula">
+
+    <button type="button" onclick="buscarAluno()">
+      <i class="fas fa-search"></i>
+      Buscar
+    </button>
+
+    <button type="button" onclick="carregarAlunos()">
+      <i class="fas fa-list"></i>
+      Mostrar Todos
+    </button>
+
+  </div>
+
+  <section>
+
+    <h2>Lista de Alunos</h2>
+
+    <div id="listaAlunos" class="lista">
+
+      <p class="carregando">
+        Carregando alunos...
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 EduGestão. Todos os direitos reservados.
+</footer>
+
+<script src="consulta.js"></script>
+
 </body>
 </html>
