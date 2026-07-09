@@ -1,6 +1,51 @@
+/* --- CONFIGURAÇÕES GERAIS E CABEÇALHO --- */
+
+.navbar {
+    background-color: #2563eb;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    /* ADICIONADO: Borda inferior sutil para destacar o cabeçalho */
+    border-bottom: 3px solid rgba(255, 255, 255, 0.15); 
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+/* ESTILIZADO: Botão de comando "Início" */
+.btn-admin {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espaço perfeito entre o ícone da casa e o texto */
+    transition: all 0.2s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Efeito ao passar o mouse no botão Início */
+.btn-admin:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px); /* Leve efeito de flutuação */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+
 /* --- ESTILOS EXCLUSIVOS DA PÁGINA DE RELATÓRIOS --- */
 
-/* Cabeçalho do Relatório */
 .page-header {
     text-align: center;
     margin-bottom: 40px;
@@ -156,6 +201,15 @@
     font-weight: 600;
 }
 
+/* Rodapé (Caso falte no seu arquivo global) */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-top: 40px;
+}
+
 /* Responsividade de Telas Menores */
 @media (max-width: 768px) {
     .filters-section {
@@ -164,5 +218,8 @@
     }
     .charts-container {
         grid-template-columns: 1fr;
+    }
+    .navbar {
+        padding: 15px 20px;
     }
 }
