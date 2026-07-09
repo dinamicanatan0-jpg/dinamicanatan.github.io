@@ -1,117 +1,161 @@
-// CONFIGURAÇÃO DO SUPABASE
-const SUPABASE_URL = "https://slfcjvwsoyucjbymnuaw.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsZmNqdndzb3l1Y2pieW1udWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NTU4NTIsImV4cCI6MjA5OTAzMTg1Mn0.rq8pFIiYozatMtKKork4gsoGyMTsi2og470stWeW05c";
+// ===============================
+// FUNÇÕES DO DIÁRIO DE CLASSE
+// ===============================
 
-// Inicializa o cliente do Supabase utilizando uma constante única para evitar conflitos
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+function calcularMedia(n1, n2) {
+    n1 = Number(n1) || 0;
+    n2 = Number(n2) || 0;
 
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // === 1. LÓGICA DE CADASTRO ===
-    const formCadastro = document.querySelector('.formulario-cadastro');
-    if (formCadastro) {
-        formCadastro.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Impede o navegador de recarregar a página (Evita Erro 405)
+    return ((n1 + n2) / 2).toFixed(1);
+}
 
-            const formData = new FormData(formCadastro);
-            const dadosAluno = Object.fromEntries(formData.entries());
+function gerarSituacao(n1, n2) {
+    const media = (Number(n1) + Number(n2)) / 2;
 
-            try {
-                const { data, error } = await supabaseClient
-                    .from('alunos')
-                    .insert([dadosAluno]);
-
-                if (error) throw error;
-
-                alert('Aluno cadastrado com sucesso!');
-                formCadastro.reset(); // Limpa o formulário após o sucesso
-            } catch (err) {
-                alert('Erro ao salvar no Supabase: ' + err.message);
-                console.error('Detalhes do erro:', err);
-            }
-        });
+    if (media >= 7) {
+        return '<span class="badge status-aprovado">Aprovado</span>';
     }
 
-    // === 2. LÓGICA DE CONSULTA ===
-    const formBusca = document.getElementById('searchForm');
-    if (formBusca) {
-        formBusca.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Impede o recarregamento da página durante a busca
-            
-            const matricula = document.getElementById('matriculaInput').value.trim();
-            const resultado = document.getElementById('resultadoBusca');
-            const erro = document.getElementById('erroBusca');
-
-            try {
-                const { data, error } = await supabaseClient
-                    .from('alunos')
-                    .select('*')
-                    .eq('matricula', matricula)
-                    .maybeSingle(); // Retorna o objeto do aluno ou nulo se não encontrar
-
-                if (error) throw error;
-
-                if (data) {
-                    // Preenche as informações textuais correspondentes no HTML
-                    document.getElementById('alunoNome').textContent = data.nome;
-                    document.getElementById('alunoMatricula').textContent = data.matricula;
-                    document.getElementById('alunoCurso').textContent = data.turma;
-                    
-                    // Vincula o nome do responsável ao campo correspondente na interface
-                    document.getElementById('alunoEmail').textContent = data.responsavel || '-';
-                    
-                    // Garante a exibição do status padrão caso não exista na coluna
-                    const statusBadge = document.getElementById('alunoStatus');
-                    if (statusBadge) {
-                        statusBadge.textContent = data.status || 'Ativo';
-                    }
-
-                    // Formata a data de nascimento de (AAAA-MM-DD) para (DD/MM/AAAA)
-                    if (data.data_nascimento) {
-                        const dataFormatada = data.data_nascimento.split('-').reverse().join('/');
-                        document.getElementById('alunoDataNasc').textContent = dataFormatada;
-                    } else {
-                        document.getElementById('alunoDataNasc').textContent = '-';
-                    }
-                    
-                    document.getElementById('alunoTelefone').textContent = data.telefone_1;
-                    
-                    // Exibe o painel de resultados e oculta a mensagem de erro
-                    resultado.classList.remove('hidden');
-                    erro.classList.add('hidden');
-                } else {
-                    // Se o aluno não for localizado, oculta o resultado e exibe o alerta
-                    resultado.classList.add('hidden');
-                    erro.classList.remove('hidden');
-                }
-            } catch (err) {
-                alert('Erro na busca: ' + err.message);
-                console.error(err);
-            }
-        });
+    if (media >= 5) {
+        return '<span class="badge status-recuperacao">Recuperação</span>';
     }
-});
 
-// === 3. FUNÇÃO DE LOGIN ===
-// Fica fora do DOMContentLoaded para que o "onsubmit" do HTML consiga enxergar a função globalmente
-function handleLogin(event) {
-    event.preventDefault(); // Evita que a página recarregue ao clicar em enviar
+    return '<span class="badge status-reprovado">Reprovado</span>';
+}
 
-    const emailInput = document.getElementById('email').value.trim();
-    const passwordInput = document.getElementById('password').value;
-    const errorMessage = document.getElementById('error-message');
+async function carregarAlunos() {
+    const tbody = document.getElementById('lista-alunos');
 
-    // Credenciais que você definiu para o grupo
-    const adminEmail = "dinamicanatan0@gmail.com";
-    const adminPassword = "cursotecnico";
+    if (!tbody) return;
 
-    if (emailInput === adminEmail && passwordInput === adminPassword) {
-        if (errorMessage) errorMessage.classList.add('hidden');
-        
-        alert('Login efetuado com sucesso!');
-        // Redireciona o administrador para a página do diário de classe do grupo
-        window.location.href = "diario.html"; 
-    } else {
-        if (errorMessage) errorMessage.classList.remove('hidden');
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="8">Carregando alunos...</td>
+        </tr>
+    `;
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('alunos')
+            .select('*')
+            .order('nome');
+
+        if (error) throw error;
+
+        tbody.innerHTML = '';
+
+        if (!data || data.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8">
+                        Nenhum aluno cadastrado.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        data.forEach(aluno => {
+            const tr = document.createElement('tr');
+
+            tr.innerHTML = `
+                <td>${aluno.matricula || '-'}</td>
+
+                <td class="student-name">
+                    ${aluno.nome || '-'}
+                </td>
+
+                <td>
+                    <input
+                        type="number"
+                        class="input-nota"
+                        value="${aluno.nota1 || 0}"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                    >
+                </td>
+
+                <td>
+                    <input
+                        type="number"
+                        class="input-nota"
+                        value="${aluno.nota2 || 0}"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                    >
+                </td>
+
+                <td class="text-center font-bold">
+                    ${calcularMedia(aluno.nota1, aluno.nota2)}
+                </td>
+
+                <td>
+                    <input
+                        type="number"
+                        class="input-frequencia"
+                        value="${aluno.presencas || 0}"
+                    >
+                </td>
+
+                <td>
+                    <input
+                        type="number"
+                        class="input-frequencia"
+                        value="${aluno.faltas || 0}"
+                    >
+                </td>
+
+                <td class="text-center">
+                    ${gerarSituacao(aluno.nota1, aluno.nota2)}
+                </td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+
+    } catch (err) {
+        console.error('Erro ao carregar alunos:', err);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    Erro ao carregar alunos.
+                </td>
+            </tr>
+        `;
     }
 }
+
+// ===============================
+// BUSCA PELO NOME
+// ===============================
+document.addEventListener('input', (e) => {
+    if (e.target.id !== 'search-student') return;
+
+    const termo = e.target.value.toLowerCase();
+
+    document.querySelectorAll('#lista-alunos tr')
+        .forEach(linha => {
+            const nome = linha.querySelector('.student-name');
+
+            if (!nome) return;
+
+            linha.style.display =
+                nome.textContent
+                    .toLowerCase()
+                    .includes(termo)
+                    ? ''
+                    : 'none';
+        });
+});
+
+// ===============================
+// CARREGA O DIÁRIO AUTOMATICAMENTE
+// ===============================
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('lista-alunos')) {
+        carregarAlunos();
+    }
+});
