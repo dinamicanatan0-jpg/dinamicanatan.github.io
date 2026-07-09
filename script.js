@@ -32,6 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================
 // CADASTRO DE ALUNOS
 // ==========================================
+function gerarMatricula() {
+    const ano = new Date().getFullYear();
+    const numero = Date.now().toString().slice(-6);
+
+    return `${ano}${numero}`;
+}
 function inicializarCadastro() {
     const formCadastro =
         document.querySelector('.formulario-cadastro');
@@ -47,6 +53,9 @@ function inicializarCadastro() {
         const dadosAluno =
             Object.fromEntries(formData.entries());
 
+        // GERA MATRÍCULA AUTOMÁTICA
+        dadosAluno.matricula = gerarMatricula();
+
         try {
             const { error } = await supabaseClient
                 .from('alunos')
@@ -54,7 +63,10 @@ function inicializarCadastro() {
 
             if (error) throw error;
 
-            alert('Aluno cadastrado com sucesso!');
+            alert(
+                `Aluno cadastrado com sucesso!\nMatrícula: ${dadosAluno.matricula}`
+            );
+
             formCadastro.reset();
 
         } catch (err) {
