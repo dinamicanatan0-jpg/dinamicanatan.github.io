@@ -1,12 +1,12 @@
 // CONFIGURAÇÃO DO SUPABASE
 const SUPABASE_URL = "https://slfcjvwsoyucjbymnuaw.supabase.co";
+
 const SUPABASE_ANON_KEY =
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsZmNqdndzb3l1Y2pieW1udWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NTU4NTIsImV4cCI6MjA5OTAzMTg1Mn0.rq8pFIiYozatMtKKork4gsoGyMTsi2og470stWeW05c";
 
-
-const supabase = window.supabase.createClient(
-  supabaseUrl,
-  supabaseKey
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
 );
 
 const lista = document.getElementById("listaAlunos");
@@ -16,20 +16,22 @@ const total = document.getElementById("totalMatriculas");
 async function carregarAlunos() {
   lista.innerHTML = "<p>Carregando alunos...</p>";
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from("alunos")
     .select("*")
     .order("nome", { ascending: true });
 
   if (error) {
-    console.error(error);
+    console.error("Erro Supabase:", error);
     lista.innerHTML = "<p>Erro ao carregar alunos.</p>";
     return;
   }
 
   lista.innerHTML = "";
 
-  total.textContent = data.length;
+  if (total) {
+    total.textContent = data.length;
+  }
 
   if (data.length === 0) {
     lista.innerHTML = "<p>Nenhum aluno cadastrado.</p>";
@@ -51,7 +53,8 @@ async function carregarAlunos() {
 
 // BUSCAR POR MATRÍCULA
 async function buscarAluno() {
-  const matricula = document.getElementById("matricula").value.trim();
+  const matricula =
+    document.getElementById("matricula").value.trim();
 
   if (!matricula) {
     carregarAlunos();
@@ -60,13 +63,13 @@ async function buscarAluno() {
 
   lista.innerHTML = "<p>Buscando...</p>";
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from("alunos")
     .select("*")
     .eq("matricula", matricula);
 
   if (error) {
-    console.error(error);
+    console.error("Erro na busca:", error);
     lista.innerHTML = "<p>Erro na busca.</p>";
     return;
   }
@@ -91,12 +94,10 @@ async function buscarAluno() {
   });
 }
 
-// BOTÃO VOLTAR
 function voltar() {
-  window.location.href = "diario.html";
+  window.location.href = "index.html";
 }
 
-// CARREGA AUTOMATICAMENTE AO ABRIR A PÁGINA
 document.addEventListener("DOMContentLoaded", () => {
   carregarAlunos();
 });
