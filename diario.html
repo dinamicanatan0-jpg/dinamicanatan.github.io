@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGestão - Diário de Classe</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduGestão - Diário de Classe</title>
 
-    <link rel="stylesheet" href="diario.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="diario.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
 
 <header class="navbar">
@@ -27,22 +29,23 @@
     <section class="page-header">
         <h1>Diário de Classe</h1>
         <p>
-            Gerencie as notas, controle de frequência e acompanhe a situação de aprovação dos alunos.
+            Gerencie notas, frequência e situação dos alunos.
         </p>
     </section>
 
     <section class="filters-section">
+
         <div class="filter-group">
-            <label>Turma:</label>
+            <label>Turma</label>
             <select>
-                <option>3º Ano A - Ensino Médio</option>
-                <option>3º Ano B - Ensino Médio</option>
-                <option>2º Ano A - Ensino Médio</option>
+                <option>3º Ano A</option>
+                <option>3º Ano B</option>
+                <option>2º Ano A</option>
             </select>
         </div>
 
         <div class="filter-group">
-            <label>Disciplina:</label>
+            <label>Disciplina</label>
             <select>
                 <option>Matemática</option>
                 <option>Português</option>
@@ -51,7 +54,7 @@
         </div>
 
         <div class="filter-group">
-            <label>Bimestre:</label>
+            <label>Bimestre</label>
             <select>
                 <option>1º Bimestre</option>
                 <option>2º Bimestre</option>
@@ -59,42 +62,46 @@
                 <option>4º Bimestre</option>
             </select>
         </div>
+
     </section>
 
     <section class="table-container">
 
         <div class="table-actions">
+
             <h3>Lista de Alunos</h3>
 
             <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
 
                 <input
                     type="text"
                     id="search-student"
-                    placeholder="Buscar aluno pelo nome..."
+                    placeholder="Buscar aluno..."
                 >
             </div>
 
-            <button class="btn-save">
+            <button class="btn-save" onclick="salvarAlteracoes()">
                 <i class="fa-solid fa-floppy-disk"></i>
                 Salvar Alterações
             </button>
+
         </div>
 
         <div class="responsive-table">
             <table>
+
                 <thead>
-                <tr>
-                    <th>Matrícula</th>
-                    <th>Nome do Aluno</th>
-                    <th>Nota 1</th>
-                    <th>Nota 2</th>
-                    <th>Média</th>
-                    <th>Presenças</th>
-                    <th>Faltas</th>
-                    <th>Situação</th>
-                </tr>
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Nome</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Média</th>
+                        <th>Presenças</th>
+                        <th>Faltas</th>
+                        <th>Situação</th>
+                    </tr>
                 </thead>
 
                 <tbody id="lista-alunos">
@@ -107,24 +114,26 @@
 
             </table>
         </div>
+
     </section>
 
 </main>
 
 <footer class="footer">
-    <p>&copy; 2026 EduGestão. Todos os direitos reservados.</p>
+    © 2026 EduGestão. Todos os direitos reservados.
 </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 const SUPABASE_URL =
 'https://slfcjvwsoyucjbymnuaw.supabase.co';
 
 const SUPABASE_ANON_KEY =
-'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsZmNqdndzb3l1Y2pieW1udWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NTU4NTIsImV4cCI6MjA5OTAzMTg1Mn0.rq8pFIiYozatMtKKork4gsoGyMTsi2og470stWeW05c';
+'https://slfcjvwsoyucjbymnuaw.supabase.co' ? 
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsZmNqdndzb3l1Y2pieW1udWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NTU4NTIsImV4cCI6MjA5OTAzMTg1Mn0.rq8pFIiYozatMtKKork4gsoGyMTsi2og470stWeW05c'
+: '';
 
-const supabaseClient = supabase.createClient(
+const supabaseClient =
+window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
 );
@@ -132,7 +141,6 @@ const supabaseClient = supabase.createClient(
 function calcularMedia(n1, n2) {
     n1 = Number(n1) || 0;
     n2 = Number(n2) || 0;
-
     return ((n1 + n2) / 2).toFixed(1);
 }
 
@@ -140,89 +148,34 @@ function gerarSituacao(media) {
     media = Number(media);
 
     if (media >= 7) {
-        return '<span class="badge status-aprovado">Aprovado</span>';
+        return `<span class="badge status-aprovado">
+                    Aprovado
+                </span>`;
     }
 
     if (media >= 5) {
-        return '<span class="badge status-recuperacao">Recuperação</span>';
+        return `<span class="badge status-recuperacao">
+                    Recuperação
+                </span>`;
     }
 
-    return '<span class="badge status-reprovado">Reprovado</span>';
+    return `<span class="badge status-reprovado">
+                Reprovado
+            </span>`;
 }
 
 async function carregarAlunos() {
-    const tbody = document.getElementById('lista-alunos');
+    const tbody =
+        document.getElementById("lista-alunos");
 
-    try {
-        const { data, error } = await supabaseClient
-            .from('alunos')
-            .select('*')
-            .order('nome');
+    const { data, error } =
+        await supabaseClient
+        .from("alunos")
+        .select("*")
+        .order("nome");
 
-        if (error) throw error;
-
-        tbody.innerHTML = '';
-
-        if (!data || data.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="8">
-                        Nenhum aluno cadastrado.
-                    </td>
-                </tr>
-            `;
-            return;
-        }
-
-        data.forEach(aluno => {
-            const nota1 = Number(aluno.nota1) || 0;
-            const nota2 = Number(aluno.nota2) || 0;
-            const media = calcularMedia(nota1, nota2);
-
-            const tr = document.createElement('tr');
-
-            tr.innerHTML = `
-                <td>${aluno.matricula || '-'}</td>
-                <td class="student-name">${aluno.nome || '-'}</td>
-
-                <td>
-                    <input type="number"
-                           class="input-nota"
-                           value="${nota1}">
-                </td>
-
-                <td>
-                    <input type="number"
-                           class="input-nota"
-                           value="${nota2}">
-                </td>
-
-                <td class="text-center font-bold">
-                    ${media}
-                </td>
-
-                <td>
-                    <input type="number"
-                           class="input-frequencia"
-                           value="${aluno.presencas || 0}">
-                </td>
-
-                <td>
-                    <input type="number"
-                           class="input-frequencia"
-                           value="${aluno.faltas || 0}">
-                </td>
-
-                <td class="text-center">
-                    ${gerarSituacao(media)}
-                </td>
-            `;
-
-            tbody.appendChild(tr);
-        });
-
-    } catch (err) {
-        console.error(err);
+    if (error) {
+        console.error(error);
 
         tbody.innerHTML = `
             <tr>
@@ -231,34 +184,190 @@ async function carregarAlunos() {
                 </td>
             </tr>
         `;
+        return;
     }
+
+    tbody.innerHTML = "";
+
+    if (data.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    Nenhum aluno cadastrado.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    data.forEach(aluno => {
+
+        const media =
+            calcularMedia(
+                aluno.nota1,
+                aluno.nota2
+            );
+
+        tbody.innerHTML += `
+            <tr data-id="${aluno.id}">
+
+                <td>${aluno.matricula || "-"}</td>
+
+                <td class="student-name">
+                    ${aluno.nome}
+                </td>
+
+                <td>
+                    <input
+                        type="number"
+                        class="nota1 input-nota"
+                        value="${aluno.nota1 || 0}"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                    >
+                </td>
+
+                <td>
+                    <input
+                        type="number"
+                        class="nota2 input-nota"
+                        value="${aluno.nota2 || 0}"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                    >
+                </td>
+
+                <td class="media">
+                    ${media}
+                </td>
+
+                <td>
+                    <input
+                        type="number"
+                        class="presencas input-frequencia"
+                        value="${aluno.presencas || 0}"
+                    >
+                </td>
+
+                <td>
+                    <input
+                        type="number"
+                        class="faltas input-frequencia"
+                        value="${aluno.faltas || 0}"
+                    >
+                </td>
+
+                <td class="situacao">
+                    ${gerarSituacao(media)}
+                </td>
+
+            </tr>
+        `;
+    });
 }
 
-document
-.getElementById('search-student')
-.addEventListener('input', function () {
+document.addEventListener("input", (e) => {
 
-    const texto = this.value.toLowerCase();
+    if (
+        e.target.classList.contains("nota1") ||
+        e.target.classList.contains("nota2")
+    ) {
+        const linha =
+            e.target.closest("tr");
 
-    document
-    .querySelectorAll('#lista-alunos tr')
-    .forEach(linha => {
-        const nome =
-            linha.querySelector('.student-name');
+        const n1 =
+            linha.querySelector(".nota1").value;
 
-        if (!nome) return;
+        const n2 =
+            linha.querySelector(".nota2").value;
 
-        linha.style.display =
-            nome.textContent
-                .toLowerCase()
-                .includes(texto)
-                    ? ''
-                    : 'none';
-    });
+        const media =
+            calcularMedia(n1, n2);
+
+        linha.querySelector(".media")
+            .innerText = media;
+
+        linha.querySelector(".situacao")
+            .innerHTML =
+                gerarSituacao(media);
+    }
+
+    if (e.target.id === "search-student") {
+        const texto =
+            e.target.value.toLowerCase();
+
+        document
+            .querySelectorAll("#lista-alunos tr")
+            .forEach(linha => {
+
+                const nome =
+                    linha.querySelector(
+                        ".student-name"
+                    );
+
+                if (!nome) return;
+
+                linha.style.display =
+                    nome.textContent
+                        .toLowerCase()
+                        .includes(texto)
+                        ? ""
+                        : "none";
+            });
+    }
 });
 
+async function salvarAlteracoes() {
+
+    const linhas =
+        document.querySelectorAll(
+            "#lista-alunos tr"
+        );
+
+    for (const linha of linhas) {
+
+        const id =
+            linha.dataset.id;
+
+        if (!id) continue;
+
+        const nota1 =
+            linha.querySelector(".nota1").value;
+
+        const nota2 =
+            linha.querySelector(".nota2").value;
+
+        const presencas =
+            linha.querySelector(".presencas").value;
+
+        const faltas =
+            linha.querySelector(".faltas").value;
+
+        const { error } =
+            await supabaseClient
+            .from("alunos")
+            .update({
+                nota1,
+                nota2,
+                presencas,
+                faltas
+            })
+            .eq("id", id);
+
+        if (error) {
+            console.error(error);
+            alert("Erro ao salvar.");
+            return;
+        }
+    }
+
+    alert("Alterações salvas com sucesso!");
+}
+
 document.addEventListener(
-    'DOMContentLoaded',
+    "DOMContentLoaded",
     carregarAlunos
 );
 </script>
