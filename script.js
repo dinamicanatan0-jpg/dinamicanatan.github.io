@@ -368,80 +368,256 @@ async function carregarRelatorio() {
 
     if (!totalAlunos || !tabela) return;
 
-    tabela.innerHTML = `
-        <tr>
-            <td colspan="5"
-                style="text-align:center;padding:2rem;">
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                Carregando dados...
-            </td>
-        </tr>
-    `;
-
     try {
-        const { data, error } = await supabaseClient
-            .from("alunos")
-            .select("*")
-            .order("nome", { ascending: true });
+        const { data, error } =
+            await supabaseClient
+                .from("alunos")
+                .select("*")
+                .order("nome");
 
         if (error) throw error;
 
+        // ==========================
+        // CARDS
+        // ==========================
         totalAlunos.textContent = data.length;
 
+        const ativos = data.filter(
+            a => (a.status || "Ativo") === "Ativo"
+        ).length;
+
+        document.getElementById(
+            "alunosAtivos"
+        ).textContent = ativos;
+
+        const turmas = [
+            ...new Set(
+                data
+                    .map(a => a.turma)
+                    .filter(Boolean)
+            )
+        ];
+
+        document.getElementById(
+            "totalTurmas"
+        ).textContent = turmas.length;
+
+        const aprovados = data.filter(a => {
+            const media =
+                (
+                    (Number(a.nota1) || 0) +
+                    (Number(a.nota2) || 0)
+                ) / 2;
+
+            return media >= 7;
+        }).length;
+
+        document.getElementById(
+            "aprovados"
+        ).textContent = aprovados;
+
+        // ==========================
+        // MÉDIA GERAL
+        // ==========================
+        let soma = 0;
+
+        data.forEach(a => {
+            soma += (
+                (Number(a.nota1) || 0) +
+                (Number(a.nota2) || 0)
+            ) / 2;
+        });
+
+        const mediaGeral =
+            data.length > 0
+                ? (soma / data.length).toFixed(1)
+                : "0.0";
+
+        document.getElementById(
+            "mediaGeral"
+        ).textContent = mediaGeral;
+
+        // ==========================
+        // TAXA DE APROVAÇÃO
+        // ==========================
+        const percentual =
+            data.length > 0
+                ? (aprovados / data.length) * 100
+                : 0;
+
+        document.getElementById(
+            "barraAprovacao"
+        ).style.width =
+            percentual + "%";
+
+        document.getElementById(
+            "textoAprovacao"
+        ).textContent =
+            percentual.toFixed(1) +
+            "% dos alunos aprovados";
+
+        // ==========================
+        // TABELA
+        // ==========================
         tabela.innerHTML = "";
 
-        if (data.length === 0) {
-            tabela.innerHTML = `
+        data.forEach(aluno => {
+            tabela.innerHTML += `
                 <tr>
-                    <td colspan="5"
-                        style="text-align:center;padding:2rem;">
-                        Nenhum aluno cadastrado.
+                    <td>${aluno.matricula || "-"}</td>
+                    <td>${aluno.nome || "-"}</td>
+                    <td>${aluno.turma || "-"}</td>
+                    <td>${aluno.responsavel || "-"}</td>
+                    <td>
+                        <span class="badge-status status-ativo">
+                            ${aluno.status || "Ativo"}
+                        </span>
                     </td>
                 </tr>
             `;
-            return;
-        }
-
-        data.forEach(aluno => {
-            const tr = document.createElement("tr");
-
-            tr.innerHTML = `
-                <td style="padding:0.75rem 0.5rem;">
-                    ${aluno.matricula || "-"}
-                </td>
-
-                <td style="padding:0.75rem 0.5rem;">
-                    ${aluno.nome || "-"}
-                </td>
-
-                <td style="padding:0.75rem 0.5rem;">
-                    ${aluno.turma || "-"}
-                </td>
-
-                <td style="padding:0.75rem 0.5rem;">
-                    ${aluno.responsavel || "-"}
-                </td>
-
-                <td style="padding:0.75rem 0.5rem;">
-                    ${aluno.status || "Ativo"}
-                </td>
-            `;
-
-            tabela.appendChild(tr);
         });
 
-    } catch (err) {
-        console.error("Erro ao carregar relatório:", err);
+        // ==========================
+        // ÚLTIMOS CADASTROS
+        // ==========================
+        const lista =
+            document.getElementById(
+                "ultimosAlunos"
+            );
 
-        totalAlunos.textContent = "Erro";
+        if (lista) {
+            lista.innerHTML = "";
+
+            data
+                .slice(-5)
+                .reverse()
+                .forEach(aluno => {
+                    lista.innerHTML += `
+                        <li>
+                            <strong>${aluno.nome}</strong>
+                            <br>
+                            ${aluno.turma || "-"}
+                        </li>
+                    `;
+                });
+        }
+
+        // ==========================
+        // ALUNOS POR TURMA
+        // ==========================
+        const alunosPorTurma = {};
+
+        data.forEach(aluno => {
+            const turma =
+                aluno.turma || "Sem turma";
+
+            alunosPorTurma[turma] =
+                (alunosPorTurma[turma] || 0) + 1;
+        });
+
+        const canvasTurmas =
+            document.getElementById(
+                "graficoTurmas"
+            );
+
+        if (canvasTurmas) {
+            new Chart(canvasTurmas, {
+                type: "doughnut",
+                data: {
+                    labels:
+                        Object.keys(
+                            alunosPorTurma
+                        ),
+                    datasets: [{
+                        data:
+                            Object.values(
+                                alunosPorTurma
+                            )
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            });
+        }
+
+        // ==========================
+        // MATRÍCULAS POR MÊS
+        // ==========================
+        const meses = [
+            "Jan",
+            "Fev",
+            "Mar",
+            "Abr",
+            "Mai",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Set",
+            "Out",
+            "Nov",
+            "Dez"
+        ];
+
+        const matriculasMes =
+            Array(12).fill(0);
+
+        data.forEach(aluno => {
+            if (!aluno.created_at)
+                return;
+
+            const mes =
+                new Date(
+                    aluno.created_at
+                ).getMonth();
+
+            matriculasMes[mes]++;
+        });
+
+        const canvasMatriculas =
+            document.getElementById(
+                "graficoMatriculas"
+            );
+
+        if (canvasMatriculas) {
+            new Chart(
+                canvasMatriculas,
+                {
+                    type: "bar",
+                    data: {
+                        labels: meses,
+                        datasets: [{
+                            label:
+                                "Matrículas",
+                            data:
+                                matriculasMes
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero:
+                                    true
+                            }
+                        }
+                    }
+                }
+            );
+        }
+
+    } catch (err) {
+        console.error(err);
 
         tabela.innerHTML = `
             <tr>
-                <td colspan="5"
-                    style="text-align:center;
-                           padding:2rem;
-                           color:red;">
-                    Erro ao carregar dados do Supabase.
+                <td colspan="5">
+                    Erro ao carregar dados.
                 </td>
             </tr>
         `;
