@@ -1,348 +1,237 @@
 /* =========================
-   RESET
+   FUNDO COM DEGRADÊ
 ========================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: "Segoe UI", sans-serif;
-    background: #f1f5f9;
-    color: #1e293b;
-    min-height: 100vh;
+body{
+    font-family:"Segoe UI",sans-serif;
+    background:
+        linear-gradient(
+            180deg,
+            #f8fafc 0%,
+            #eef2ff 100%
+        );
+    color:#1e293b;
+    min-height:100vh;
 }
 
 /* =========================
-   NAVBAR
+   HEADER MAIS MODERNO
 ========================= */
-.navbar {
-    background: #2563eb;
-    color: white;
-    padding: 18px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+.page-header{
+    text-align:center;
+    margin-bottom:45px;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 22px;
-    font-weight: bold;
+.page-header h1{
+    font-size:42px;
+    font-weight:800;
+    color:#0f172a;
+    margin-bottom:10px;
 }
 
-.btn-admin {
-    background: rgba(255,255,255,0.15);
-    color: white;
-    text-decoration: none;
-    padding: 10px 18px;
-    border-radius: 30px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    transition: .3s;
+.page-header p{
+    color:#64748b;
+    font-size:18px;
 }
 
-.btn-admin:hover {
-    background: rgba(255,255,255,0.25);
-}
-
-/* =========================
-   CONTAINER PRINCIPAL
-========================= */
-.main-container {
-    max-width: 1400px;
-    margin: auto;
-    padding: 40px;
-}
-
-/* =========================
-   HEADER
-========================= */
-.page-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.page-header h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-    color: #0f172a;
-}
-
-.page-header p {
-    color: #64748b;
-    font-size: 18px;
-}
-
-.data-atual {
-    margin-top: 12px;
-    color: #64748b;
+.data-atual{
+    display:inline-block;
+    margin-top:15px;
+    background:#fff;
+    padding:10px 20px;
+    border-radius:30px;
+    box-shadow:0 4px 15px rgba(0,0,0,.06);
 }
 
 /* =========================
    CARDS
 ========================= */
-.dashboard-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-    gap: 20px;
-    margin-bottom: 35px;
+.card{
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    display:flex;
+    gap:20px;
+    align-items:center;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.06);
+    transition:.3s;
+    border:none;
 }
 
-.card {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.06);
-    transition: .3s;
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.08);
 }
 
-.card:hover {
-    transform: translateY(-5px);
+.metric-value{
+    font-size:38px;
+    font-weight:800;
 }
 
-.card-icon {
-    width: 65px;
-    height: 65px;
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
+/* =========================
+   BARRA DE APROVAÇÃO
+========================= */
+.barra-progresso{
+    width:100%;
+    height:24px;
+    background:#e2e8f0;
+    border-radius:30px;
+    overflow:hidden;
+    margin-top:20px;
 }
 
-.blue-icon {
-    background: #dbeafe;
-    color: #2563eb;
+.progresso{
+    height:100%;
+    background:
+        linear-gradient(
+            90deg,
+            #16a34a,
+            #22c55e
+        );
+    border-radius:30px;
+    transition:1s;
 }
 
-.green-icon {
-    background: #dcfce7;
-    color: #16a34a;
-}
-
-.purple-icon {
-    background: #f3e8ff;
-    color: #9333ea;
-}
-
-.orange-icon {
-    background: #ffedd5;
-    color: #ea580c;
-}
-
-.card-info h3 {
-    font-size: 15px;
-    color: #64748b;
-    margin-bottom: 8px;
-}
-
-.metric-value {
-    font-size: 35px;
-    font-weight: bold;
-    color: #0f172a;
+#textoAprovacao{
+    margin-top:15px;
+    font-weight:600;
+    color:#475569;
 }
 
 /* =========================
    GRÁFICOS
 ========================= */
-.charts-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(450px,1fr));
-    gap: 20px;
-    margin-bottom: 35px;
+.chart-box{
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.06);
 }
 
-.chart-box {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+.chart-box h3{
+    margin-bottom:25px;
+    color:#0f172a;
+    font-size:18px;
 }
 
-.chart-box h3 {
-    margin-bottom: 20px;
-    color: #0f172a;
-}
-
-.chart-box canvas {
-    width: 100% !important;
-    height: 300px !important;
-}
-
-/* =========================
-   TABELA DE ALUNOS
-========================= */
-.card-busca {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.06);
-}
-
-.table-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.table-header h2 {
-    color: #0f172a;
-}
-
-/* =========================
-   PESQUISA
-========================= */
-.search-box {
-    position: relative;
-    width: 320px;
-}
-
-.search-box i {
-    position: absolute;
-    top: 14px;
-    left: 15px;
-    color: #94a3b8;
-}
-
-.search-box input {
-    width: 100%;
-    padding: 12px 15px 12px 42px;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    outline: none;
-}
-
-.search-box input:focus {
-    border-color: #2563eb;
+.chart-box canvas{
+    height:350px !important;
 }
 
 /* =========================
    TABELA
 ========================= */
-.tabela-alunos {
-    width: 100%;
-    border-collapse: collapse;
+.card-busca{
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.06);
 }
 
-.tabela-alunos thead {
-    background: #f8fafc;
+.tabela-alunos{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
 }
 
-.tabela-alunos th {
-    padding: 15px;
-    text-align: left;
-    color: #64748b;
-    border-bottom: 2px solid #e2e8f0;
+.tabela-alunos thead{
+    background:#f8fafc;
 }
 
-.tabela-alunos td {
-    padding: 15px;
-    border-bottom: 1px solid #e2e8f0;
+.tabela-alunos th{
+    padding:18px;
+    color:#475569;
+    font-size:14px;
+    font-weight:700;
 }
 
-.tabela-alunos tbody tr:hover {
-    background: #eff6ff;
+.tabela-alunos td{
+    padding:18px;
+    background:#fff;
+    border-bottom:1px solid #f1f5f9;
+}
+
+.tabela-alunos tbody tr{
+    transition:.3s;
+}
+
+.tabela-alunos tbody tr:hover{
+    background:#eff6ff;
+    transform:scale(1.01);
+}
+
+/* =========================
+   CAMPO DE PESQUISA
+========================= */
+.search-box input{
+    width:100%;
+    padding:14px 16px 14px 45px;
+    border:1px solid #dbe2ea;
+    border-radius:15px;
+    background:#f8fafc;
+    transition:.3s;
+}
+
+.search-box input:focus{
+    background:#fff;
+    border-color:#2563eb;
+    box-shadow:
+        0 0 0 5px
+        rgba(37,99,235,.12);
 }
 
 /* =========================
    STATUS
 ========================= */
-.badge-status {
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.status-ativo {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.status-inativo {
-    background: #fee2e2;
-    color: #991b1b;
+.badge-status{
+    padding:8px 16px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:700;
 }
 
 /* =========================
-   ÚLTIMOS ALUNOS
+   ÚLTIMOS CADASTROS
 ========================= */
-.ultimos-cadastros {
-    margin-top: 35px;
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+.ultimos-cadastros{
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.06);
 }
 
-.ultimos-cadastros h2 {
-    margin-bottom: 20px;
+#ultimosAlunos li{
+    padding:15px 0;
+    border-bottom:1px solid #e2e8f0;
+    transition:.2s;
 }
 
-#ultimosAlunos {
-    list-style: none;
-}
-
-#ultimosAlunos li {
-    padding: 12px 0;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-#ultimosAlunos li:last-child {
-    border-bottom: none;
+#ultimosAlunos li:hover{
+    padding-left:10px;
+    color:#2563eb;
 }
 
 /* =========================
-   FOOTER
+   ANIMAÇÕES
 ========================= */
-.footer {
-    margin-top: 40px;
-    text-align: center;
-    padding: 25px;
-    color: #64748b;
+.card,
+.chart-box,
+.card-busca,
+.ultimos-cadastros{
+    animation:fadeIn .6s ease;
 }
 
-/* =========================
-   RESPONSIVIDADE
-========================= */
-@media (max-width: 900px) {
-    .main-container {
-        padding: 20px;
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
     }
-
-    .charts-container {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .table-header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 15px;
-    }
-
-    .search-box {
-        width: 100%;
-    }
-
-    .navbar {
-        padding: 20px;
-    }
-
-    .page-header h1 {
-        font-size: 30px;
+    to{
+        opacity:1;
+        transform:translateY(0);
     }
 }
