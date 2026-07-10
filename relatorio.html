@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGestão - Relatórios Gerais</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduGestão - Relatórios Gerais</title>
 
-    <link rel="stylesheet" href="relatorio.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="relatorio.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -27,8 +29,9 @@
 
     <section class="page-header">
         <h1>Relatórios Gerais</h1>
+
         <p>
-            Acompanhe estatísticas, total de matriculados e a listagem geral do sistema.
+            Acompanhe estatísticas e indicadores do sistema.
         </p>
 
         <p class="data-atual">
@@ -46,10 +49,8 @@
             </div>
 
             <div class="card-info">
-                <h3>Total de Matriculados</h3>
-                <p class="metric-value" id="totalAlunos">
-                    0
-                </p>
+                <h3>Total de Alunos</h3>
+                <p class="metric-value" id="totalAlunos">0</p>
             </div>
         </div>
 
@@ -60,9 +61,7 @@
 
             <div class="card-info">
                 <h3>Alunos Ativos</h3>
-                <p class="metric-value" id="alunosAtivos">
-                    0
-                </p>
+                <p class="metric-value" id="alunosAtivos">0</p>
             </div>
         </div>
 
@@ -73,9 +72,7 @@
 
             <div class="card-info">
                 <h3>Total de Turmas</h3>
-                <p class="metric-value" id="totalTurmas">
-                    0
-                </p>
+                <p class="metric-value" id="totalTurmas">0</p>
             </div>
         </div>
 
@@ -86,11 +83,42 @@
 
             <div class="card-info">
                 <h3>Aprovados</h3>
-                <p class="metric-value" id="aprovados">
-                    0
-                </p>
+                <p class="metric-value" id="aprovados">0</p>
             </div>
         </div>
+
+        <div class="card">
+            <div class="card-icon red-icon">
+                <i class="fa-solid fa-chart-simple"></i>
+            </div>
+
+            <div class="card-info">
+                <h3>Média Geral</h3>
+                <p class="metric-value" id="mediaGeral">0.0</p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- TAXA DE APROVAÇÃO -->
+    <section class="card-busca">
+
+        <h2>
+            <i class="fa-solid fa-chart-pie"></i>
+            Taxa de Aprovação
+        </h2>
+
+        <div class="barra-progresso">
+            <div
+                class="progresso"
+                id="barraAprovacao"
+                style="width:0%">
+            </div>
+        </div>
+
+        <p id="textoAprovacao">
+            0% dos alunos aprovados
+        </p>
 
     </section>
 
@@ -100,7 +128,7 @@
         <div class="chart-box">
             <h3>
                 <i class="fa-solid fa-chart-line"></i>
-                Evolução de Matrículas
+                Matrículas por Mês
             </h3>
 
             <canvas id="graficoMatriculas"></canvas>
@@ -109,7 +137,7 @@
         <div class="chart-box">
             <h3>
                 <i class="fa-solid fa-chart-column"></i>
-                Distribuição por Turma
+                Alunos por Turma
             </h3>
 
             <canvas id="graficoTurmas"></canvas>
@@ -117,7 +145,7 @@
 
     </section>
 
-    <!-- PESQUISA -->
+    <!-- TABELA -->
     <section class="card-busca">
 
         <div class="table-header">
@@ -133,13 +161,13 @@
                 <input
                     type="text"
                     id="pesquisaAluno"
-                    placeholder="Pesquisar aluno pelo nome..."
+                    placeholder="Pesquisar aluno..."
                 >
             </div>
 
         </div>
 
-        <div style="overflow-x:auto;">
+        <div style="overflow-x:auto">
 
             <table class="tabela-alunos">
 
@@ -154,12 +182,14 @@
                 </thead>
 
                 <tbody id="tabelaAlunosCorpo">
+
                     <tr>
                         <td colspan="5" style="text-align:center;padding:2rem;">
                             <i class="fa-solid fa-spinner fa-spin"></i>
                             Carregando dados...
                         </td>
                     </tr>
+
                 </tbody>
 
             </table>
@@ -177,11 +207,7 @@
         </h2>
 
         <ul id="ultimosAlunos">
-
-            <li>
-                Nenhum dado carregado.
-            </li>
-
+            <li>Carregando...</li>
         </ul>
 
     </section>
@@ -194,22 +220,19 @@
     </p>
 </footer>
 
-<!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- SCRIPT PRINCIPAL -->
-<script src="script.js"></script>
-
 <script>
-    const hoje = new Date();
+const hoje = new Date();
 
-    document.getElementById("dataAtual").innerText =
-        hoje.toLocaleDateString("pt-BR", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric"
-        });
+document.getElementById("dataAtual").innerText =
+    hoje.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
